@@ -1,11 +1,10 @@
 # 微信小程序蓝牙+WiFi双控制ESP32-C3应用示范
 
 <p align="center">
-  <img src="https://img.alicdn.com/imgextra/i1/2922621297/O1CN01XgJTKh1LS4H0ugNWc_!!2922621297.png"  alt="Banner"  width="520px" height="414px"  />
+  <img src="images/main.png"  alt="Banner"  width="520px" height="414px"  />
 </p>
-<p align="center">
-  <img src="images/aithinker-mini.jpg"  alt="Banner" width="270px" height="580px"  />
-</p>
+
+
 
 
 
@@ -234,7 +233,7 @@ void Task_ParseJSON(void *pvParameters)
 
 ## 三、微信小程序核心代码
 
-代码架构
+代码架构，UI主要采用第三方库：有 WeUI、Vant-UI库，其中的MQTT库采用开源的MQTT.JS库。
 
 <p align="center">
   <img src="images/mini.jpg"  alt="Banner"   />
@@ -329,3 +328,28 @@ void Task_ParseJSON(void *pvParameters)
   },
 ```
 
+
+
+# 四、感谢
+
+为此，还开源了以下的代码仓库，共勉！！
+
+| 开源项目                                                  | 地址                                                        | 开源时间 |
+| --------------------------------------------------------- | ----------------------------------------------------------- | -------- |
+| 微信小程序连接mqtt服务器，控制esp8266智能硬件             | https://github.com/xuhongv/WeChatMiniEsp8266                | 2018.11  |
+| 微信公众号airkiss配网以及近场发现在esp8266 rtos3.1 的实现 | https://github.com/xuhongv/xLibEsp8266Rtos3.1AirKiss        | 2019.3   |
+| 微信公众号airkiss配网以及近场发现在esp32 esp-idf 的实现   | https://github.com/xuhongv/xLibEsp32IdfAirKiss              | 2019.9   |
+| 微信小程序控制esp8266实现七彩效果项目源码                 | https://github.com/xuhongv/WCMiniColorSetForEsp8266         | 2019.9   |
+| 微信小程序蓝牙配网blufi实现在esp32源码                    | https://github.com/xuhongv/BlufiEsp32WeChat                 | 2019.11  |
+| 微信小程序蓝牙ble控制esp32七彩灯效果                      | https://blog.csdn.net/xh870189248/article/details/101849759 | 2019.10  |
+| 可商用的事件分发的微信小程序mqtt断线重连框架              | https://blog.csdn.net/xh870189248/article/details/88718302  | 2019.2   |
+| 微信小程序以 websocket 连接阿里云IOT物联网平台mqtt服务器  | https://blog.csdn.net/xh870189248/article/details/91490697  | 2019.6   |
+| 微信公众号网页实现连接mqtt服务器                          | https://blog.csdn.net/xh870189248/article/details/100738444 | 2019.9   |
+| 自主开发微信小程序接入腾讯物联开发平台，实现一键配网+控制 | https://github.com/xuhongv/AiThinkerIoTMini                 | 2020.9   |
+| 云云对接方案天猫精灵小爱同学服务器+嵌入式Code开源         | https://github.com/xuhongv/xClouds-php                      | 2020.7   |
+
+另外，感谢：
+
+- 乐鑫物联网操作系统：https://github.com/espressif/esp-idf
+- 腾讯WeUI框架：https://github.com/Tencent/weui-wxss
+- 有赞Vant框架：https://vant-contrib.gitee.io/vant-weapp
