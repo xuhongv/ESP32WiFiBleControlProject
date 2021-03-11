@@ -13,7 +13,7 @@
 
 目前市场上越来越火的 Combo 方案（**Ble+WiFi**），比如平头哥的TG7100C方案、乐鑫的ESP32、博通的BK7251等，如何高效使用蓝牙和wifi通讯，已经成为了必然的趋势，于是乎，做了个这样快速入门的demo给各位，奉献于物联网；
 
-本项目适合的模组有：
+本项目适合的模组有： 
 
 | 模组                   | 链接                  |
 | ---------------------- | --------------------- |
@@ -28,7 +28,7 @@
 3. 使用乐鑫封装 RMT 驱动层单线驱动WS2812B，实现彩虹等效果；
 4. 对ESP32/C3芯片的外设开发熟悉，对BLE API接口使用熟悉，包括自定义广播/名字/自定义UUID；
 
-# 二、核心代码
+# 二、设备核心代码
 
 ## 2.1 蓝牙控制
 
@@ -190,7 +190,7 @@ void init_led()
 消息队列处理逻辑：
 
 ```c
-/* 
+/*
  * @Description: 解析下发数据的队列逻辑处理
  * @param: null
  * @return: 
@@ -232,17 +232,100 @@ void Task_ParseJSON(void *pvParameters)
 
 
 
+## 三、微信小程序核心代码
 
+代码架构
 
+<p align="center">
+  <img src="images/mini.jpg"  alt="Banner"   />
+</p>
 
+## 3.1 蓝牙搜索
 
+```
+ wx.onBluetoothDeviceFound(function (devices) {
+      var isnotexist = true
+      if (devices.deviceId) {
+        if (devices.advertisData) {
+          devices.advertisData = app.buf2hex(devices.advertisData)
+        } else {
+          devices.advertisData = ''
+        }
+        for (var i = 0; i < that.data.devicesList.length; i++) {
+          if (devices.deviceId == that.data.devicesList[i].deviceId) {
+            isnotexist = false
+          }
+        }
+        if (isnotexist && devices[0].name === that.data.filterName ) {
+          that.data.devicesList.push(devices[0])
+        }
+      }
+      that.setData({
+        devicesList: that.data.devicesList
+      })
+    })
+  }
+```
 
+## 3.2 蓝牙服务发现
 
+发现服务列表：```wx.getBLEDeviceServices()```
 
+发现特征值列表：```wx.getBLEDeviceCharacteristics()```
 
+发送设备，判断是否为蓝牙控制或wifi控制：
 
-
-
-
-
+```javascript
+ SendTap: function (red, green, blue) {
+    var that = this
+    if (!this.data.isCheckOutControl) {
+      if (this.data.connected) {
+        var buffer = new ArrayBuffer(that.data.inputText.length)
+        var dataView = new Uint8Array(buffer)
+        dataView[0] = red; 
+        dataView[1] = green; 
+        dataView[2] = blue;
+        wx.writeBLECharacteristicValue({
+          deviceId: that.data.connectedDeviceId,
+          serviceId: that.data.serviceId,
+          characteristicId: "0000FF01-0000-1000-8000-00805F9B34FB",
+          value: buffer,
+          success: function (res) {
+            console.log('发送成功')
+          }, fail() {
+            wx.showModal({
+              title: '提示',
+              content: '蓝牙已断开',
+              showCancel: false,
+              success: function (res) {
+              }
+            })
+          }
+        })
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '蓝牙已断开',
+          showCancel: false,
+          success: function (res) {
+            that.setData({
+              searching: false
+            })
+          }
+        })
+      }
+    } else {
+      //MQTT通讯发送
+      if (this.data.client && this.data.client.connected) {
+        this.data.client.publish('/esp32-c3/7cdfa1322e68/devSub', JSON.stringify({red,green,blue}));
+      } else {
+        wx.showToast({
+          title: '请先连接服务器',
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    }
+  },
+```
 
