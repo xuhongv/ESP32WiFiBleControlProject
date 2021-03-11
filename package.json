@@ -1,0 +1,23 @@
+{
+  "name": "AiTBxxForWeChat",
+  "version": "1.0.0",
+  "description": "- 安信可Tb01/02模组的透传方案 微信小程序源码，非mesh控制；",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ai-Thinker-Open/AiTBxxForWeChat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ai-Thinker-Open/AiTBxxForWeChat/issues"
+  },
+  "homepage": "https://github.com/Ai-Thinker-Open/AiTBxxForWeChat#readme",
+  "dependencies": {
+    "@vant/weapp": "^1.6.8"
+  }
+}
