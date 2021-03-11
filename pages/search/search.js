@@ -2,6 +2,7 @@ const app = getApp()
 Page({
   data: {
     searching: false,
+    filterName: "Ai-Thinker-C3F",   //剔除重复设备，过滤名字是否为 Ai-Thinker-C3F 
     devicesList: []
   },
   Search: function () {
@@ -114,7 +115,7 @@ Page({
       }
     })
     wx.onBluetoothDeviceFound(function (devices) {
-      //剔除重复设备，过滤名字是否为 Ai-Thinker 
+   
       var isnotexist = true
       if (devices.deviceId) {
         if (devices.advertisData) {
@@ -122,13 +123,12 @@ Page({
         } else {
           devices.advertisData = ''
         }
-        console.log(devices)
         for (var i = 0; i < that.data.devicesList.length; i++) {
           if (devices.deviceId == that.data.devicesList[i].deviceId) {
             isnotexist = false
           }
         }
-        if (isnotexist && devices[0].name === 'Ai-Thinker-C3F') {
+        if (isnotexist && devices[0].name === that.data.filterName) {
           that.data.devicesList.push(devices[0])
         }
       } else if (devices.devices) {
@@ -143,7 +143,7 @@ Page({
             isnotexist = false
           }
         }
-        if (isnotexist && devices.devices[0].name === 'Ai-Thinker-C3F') {
+        if (isnotexist && devices.devices[0].name === that.data.filterName) {
           that.data.devicesList.push(devices.devices[0])
         }
       } else if (devices[0]) {
@@ -158,7 +158,7 @@ Page({
             isnotexist = false
           }
         }
-        if (isnotexist && devices[0].name === 'Ai-Thinker-C3F') {
+        if (isnotexist && devices[0].name === that.data.filterName) {
           that.data.devicesList.push(devices[0])
         }
       }

@@ -207,7 +207,6 @@ Page({
 
     wx.onBLECharacteristicValueChange(function (res) {
       var recieveData = app.buf2hex(res.value);
-
     })
 
     _this = this
