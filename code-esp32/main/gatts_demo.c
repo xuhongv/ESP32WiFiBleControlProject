@@ -36,7 +36,7 @@ static xQueueHandle ParseJSONQueueHandler = NULL;               //解析json数�
 static xTaskHandle mHandlerParseJSON = NULL, handleMqtt = NULL; //任务队列
 
 char deviceUUID[17];
-char MqttTopicSub[30], MqttTopicPub[30];
+char MqttTopicSub[50], MqttTopicPub[50];
 
 typedef struct __User_data
 {
